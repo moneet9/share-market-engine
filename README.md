@@ -1,56 +1,92 @@
 # AstraX
 
-**Author:** moneet  
+**Author:** moneet
+
 **A high-performance C++ exchange engine.**
 
-AstraX is a fast exchange simulator. It matches buy and sell orders, tracks prices, and shows live market data in a dashboard.
+AstraX is a high-performance exchange simulator designed for low-latency order matching. It matches buy and sell orders, tracks market prices, streams live market data, and provides a real-time dashboard for visualization.
 
 ---
 
-## What It Does
+## Features
 
-- Matches orders using price-time priority
-- Supports limit, market, iceberg, stop, and pegged orders
-- Uses custom memory allocation to reduce overhead
-- Uses a cache-friendly order book layout
-- Streams market data through a binary TCP feed
-- Shows live prices, trades, latency, and agent activity in the dashboard
+- Price-time priority matching
+- Supports:
+  - Limit orders
+  - Market orders
+  - Iceberg orders
+  - Stop orders
+  - Pegged orders
+- Custom memory allocator for reduced overhead
+- Cache-friendly order book layout
+- Binary TCP market data feed
+- Live dashboard showing:
+  - Prices
+  - Trades
+  - Latency
+  - Trading agent activity
 
 ---
 
-## Main Parts
+## Project Structure
 
-- `engine/` - C++ matching engine and order book
-- `bindings/` - Python bindings for the engine
-- `agents/` - Simple trading agents
-- `data/` - Replay data, generators, and TCP feeder
-- `dashboard/` - Live web dashboard
-- `tests/` - Python tests
+```
+engine/       C++ matching engine and order book
+bindings/     Python bindings
+agents/       Example trading agents
+data/         Replay data, generators, and TCP feeder
+dashboard/    Live web dashboard
+tests/        Python test suite
+```
 
 ---
 
 ## Quick Start
 
-### Build the C++ Code
+### Build the C++ Engine
+
 ```bash
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
+```
 
-# Run C++ core tests
+### Run C++ Tests
+
+```bash
 ctest --test-dir build --output-on-failure
+```
 
-# Run Python tests
+### Run Python Tests
+
+```bash
 PYTHONPATH=build/bindings:. python3 -m pytest tests/ -v
+```
 
-# Start the dashboard server
+### Start the Dashboard Backend
+
+```bash
 PYTHONPATH=build/bindings:. python3 dashboard/server/app.py
+```
 
-# Start the frontend
-cd dashboard/frontend && npm install && npm run dev
+### Start the Dashboard Frontend
 
-# Send replay data over TCP
+```bash
+cd dashboard/frontend
+npm install
+npm run dev
+```
+
+### Stream Replay Data
+
+```bash
 PYTHONPATH=build/bindings:. python3 -m data.tcp_feeder --source path/to/lobster.csv
+```
 
+---
+
+## Python Example
+
+```python
 import exchange_simulator as ex
 
 engine = ex.MatchingEngine()
@@ -65,16 +101,14 @@ order.tif = ex.TimeInForce.GTC
 order.timestamp = 1
 
 engine.submit(order)
+```
 
+---
 
-Project Goals
-Fast matching
+## Project Goals
 
-Lower memory use
-
-Better cache locality
-
-Easier benchmarking
-
-Clear live visualization
-
+- Fast order matching
+- Low memory usage
+- Better cache locality
+- Easy benchmarking
+- Real-time market visualization
