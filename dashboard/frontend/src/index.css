@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-primary: #050816;
+  --bg-secondary: #0d1424;
+  --bg-card: rgba(13, 20, 36, 0.88);
+  --border: rgba(148, 163, 184, 0.16);
+  --text-primary: #ecf3ff;
+  --text-secondary: #9fb0d1;
+  --green: #34d399;
+  --red: #fb7185;
+  --blue: #60a5fa;
+  --yellow: #fbbf24;
+  --cyan: #22d3ee;
+}
+
+body {
+  font-family: 'Segoe UI Variable', 'Inter', 'Aptos', sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(34, 211, 238, 0.14), transparent 28%),
+    radial-gradient(circle at top right, rgba(96, 165, 250, 0.12), transparent 24%),
+    linear-gradient(180deg, #060916 0%, #050816 100%);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  padding: 20px;
+  position: relative;
+}
+
+#root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.45), transparent 85%);
+  opacity: 0.45;
+}
